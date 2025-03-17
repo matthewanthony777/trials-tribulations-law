@@ -1,6 +1,5 @@
 import Link from 'next/link'
-
-import { PostMetadata } from '@/lib/future-insights'
+import { FutureInsightMetadata as PostMetadata } from '@/lib/future-insights'
 import { formatDate } from '@/lib/utils'
 
 export default function Posts({ posts }: { posts: PostMetadata[] }) {
@@ -9,7 +8,7 @@ export default function Posts({ posts }: { posts: PostMetadata[] }) {
       {posts.map(post => (
         <li key={post.slug}>
           <Link
-            href={`/posts/${post.slug}`}
+            href={`/future-insights/${post.slug}`}
             className='flex flex-col justify-between gap-x-4 gap-y-1 sm:flex-row'
           >
             <div className='max-w-lg'>
@@ -18,7 +17,6 @@ export default function Posts({ posts }: { posts: PostMetadata[] }) {
                 {post.summary}
               </p>
             </div>
-
             {post.publishedAt && (
               <p className='mt-1 text-sm font-light'>
                 {formatDate(post.publishedAt)}

@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { PostMetadata } from '@/lib/future-insights'
-
+import { FutureInsightMetadata as PostMetadata } from '@/lib/future-insights'
 import Posts from '@/components/future-insights'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'

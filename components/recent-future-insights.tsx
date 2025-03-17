@@ -5,7 +5,7 @@ import { ArrowRightIcon } from '@radix-ui/react-icons'
 
 export default async function RecentFutureInsights() {
   const insights = await getFutureInsights(3)
-
+  
   return (
     <section className="py-24 bg-black">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,8 +19,7 @@ export default async function RecentFutureInsights() {
             <ArrowRightIcon className="h-4 w-4" />
           </Link>
         </div>
-        
-        <FutureInsights insights={insights} />
+        <FutureInsights posts={insights} />
       </div>
     </section>
   )
