@@ -8,9 +8,9 @@ export default function Header() {
       <nav className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-8">
-            <Link href="/" className="font-serif text-2xl font-bold text-white">
-              MAB
-            </Link>
+          <Link href="/" className="font-serif text-2xl font-bold text-white">
+  {/* No text here */}
+</Link>
             
             <ul className="hidden md:flex items-center gap-10 text-sm font-light text-gray-300">
               <li className="transition-colors hover:text-white">

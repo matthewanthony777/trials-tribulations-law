@@ -83,9 +83,6 @@ export default function Home() {
                   className="object-cover"
                   priority
                 />
-                <div className="absolute bottom-6 left-6 bg-black/60 px-4 py-2 rounded-md">
-                  <p className="text-white/80 text-sm">He is a lawyer</p>
-                </div>
               </div>
             </div>
           </div>
