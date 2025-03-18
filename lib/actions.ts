@@ -8,6 +8,7 @@ import CollaborateFormEmail from '@/emails/collaborate-form-email'
 type NewsletterFormInputs = z.infer<typeof NewsletterFormSchema>
 type CollaborateFormInputs = z.infer<typeof CollaborateFormSchema>
 
+// Initialize Resend with your API key
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function sendEmail(data: CollaborateFormInputs) {
@@ -20,20 +21,24 @@ export async function sendEmail(data: CollaborateFormInputs) {
   try {
     const { name, email, position, goals } = result.data;
     
+    // Send email using Resend
     const { data: emailData, error } = await resend.emails.send({
-      from: 'trials.tribulations@resend.dev',
-      to: ['matthewbarr777@gmail.com'],
-      subject: 'Collaboration Request',
-      text: `Name: ${name}\nEmail: ${email}\nPosition: ${position}\nGoals: ${goals}`,
+      from: 'trialsandtribulationslaw@resend.dev',
+      to: ['trialsandtribulationslaw@gmail.com'],
+      cc: ['trialsandtribulationslaw@gmail.com'],
+      subject: 'New Consultation Request',
+      text: `Name: ${name}\nEmail: ${email}\nCurrent Position: ${position}\nGoals: ${goals}`,
       react: CollaborateFormEmail({ name, email, position, goals })
     })
 
-    if (!emailData || error) {
+    if (error) {
+      console.error("Resend API error:", error);
       throw new Error('Failed to send email')
     }
 
     return { success: true }
   } catch (error) {
+    console.error("Email sending error:", error);
     return { error }
   }
 }
@@ -47,25 +52,37 @@ export async function subscribe(data: NewsletterFormInputs) {
 
   try {
     const { email } = result.data
-    const { data, error } = await resend.contacts.create({
+    
+    // Add to Resend audience
+    const audienceId = process.env.RESEND_AUDIENCE_ID;
+    
+    if (!audienceId) {
+      console.error("Missing RESEND_AUDIENCE_ID environment variable");
+      return { error: "Configuration error" };
+    }
+    
+    // Add contact to audience
+    const { error } = await resend.contacts.create({
       email: email,
-      audienceId: process.env.RESEND_AUDIENCE_ID as string
-    })
+      audienceId: audienceId
+    });
 
-    if (!data || error) {
+    if (error) {
+      console.error("Error adding to audience:", error);
       throw new Error('Failed to subscribe')
     }
 
-    // Send a welcome email if needed
-    // await resend.emails.send({
-    //   from: 'trials.tribulations@resend.dev',
-    //   to: [email],
-    //   subject: 'Welcome to Trials & Tribulations',
-    //   text: 'Thank you for subscribing to our newsletter.'
-    // });
+    // Also send a notification email
+    await resend.emails.send({
+      from: 'trialsandtribulationslaw@resend.dev',
+      to: ['trialsandtribulationslaw@gmail.com'],
+      subject: 'New Newsletter Subscription',
+      text: `New subscription from: ${email}`
+    });
 
     return { success: true }
   } catch (error) {
+    console.error("Subscription error:", error);
     return { error }
   }
 }

@@ -1,12 +1,12 @@
 {
-  "/collaborate/page": "app/collaborate/page.js",
-  "/expertise/page": "app/expertise/page.js",
   "/_not-found/page": "app/_not-found/page.js",
+  "/expertise/page": "app/expertise/page.js",
   "/contact/page": "app/contact/page.js",
-  "/page": "app/page.js",
+  "/collaborate/page": "app/collaborate/page.js",
   "/future-insights/page": "app/future-insights/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js",
   "/projects/page": "app/projects/page.js",
-  "/projects/[slug]/page": "app/projects/[slug]/page.js",
-  "/future-insights/[slug]/page": "app/future-insights/[slug]/page.js"
+  "/future-insights/[slug]/page": "app/future-insights/[slug]/page.js",
+  "/projects/[slug]/page": "app/projects/[slug]/page.js"
 }
