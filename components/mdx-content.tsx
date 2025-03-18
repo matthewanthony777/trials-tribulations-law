@@ -2,6 +2,7 @@ import { JSX } from 'react'
 import { highlight } from 'sugar-high'
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 import Image from 'next/image'
+import { ImgHTMLAttributes, DetailedHTMLProps } from 'react'
 
 import Counter from '@/components/counter'
 
@@ -10,21 +11,36 @@ function Code({ children, ...props }: any) {
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
 }
 
-function CustomImage({ src, alt, width = 800, height = 450 }: { src: string; alt?: string; width?: number; height?: number }) {
+// Modified CustomImage component to accept all standard img props
+function CustomImage({
+  src,
+  alt = "",
+  width = 800,
+  height = 450,
+  ...rest
+}: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
+  width?: number;
+  height?: number;
+}) {
+  if (!src) return null;
+  
   return (
     <div className="my-8 relative overflow-hidden rounded-lg">
       <Image
         src={src}
-        alt={alt || ''}
+        alt={alt}
         width={width}
         height={height}
         className="object-cover"
+        {...rest}
       />
     </div>
   )
 }
 
-function Video({ src, poster }: { src: string; poster?: string }) {
+function Video({ src, poster, ...props }: { src: string; poster?: string; [key: string]: any }) {
+  if (!src) return null;
+  
   return (
     <div className="my-8 relative overflow-hidden rounded-lg">
       <video 
@@ -32,6 +48,7 @@ function Video({ src, poster }: { src: string; poster?: string }) {
         controls 
         className="w-full" 
         poster={poster}
+        {...props}
       />
     </div>
   )
