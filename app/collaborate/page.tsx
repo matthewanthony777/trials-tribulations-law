@@ -72,7 +72,7 @@ export default function CollaboratePage() {
           </div>
         </div>
 
-        <div className="mb-16">
+        <div id="contact-form" className="mb-16">
           <h2 className="text-3xl font-serif font-bold mb-8 text-center">Connect with Trials & Tribulations</h2>
           <CollaborateForm />
         </div>

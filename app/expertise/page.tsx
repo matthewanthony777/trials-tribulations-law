@@ -131,7 +131,7 @@ export default function ExpertisePage() {
               For confidential consultation on your specific situation, contact us through our secure collaboration channel. Due to
               our personalized approach, we maintain limited availability.
             </p>
-            <Link href="/collaborate">
+            <Link href="/collaborate#contact-form">
               <Button className="bg-indigo-700 hover:bg-indigo-600 text-white px-8 py-3 text-lg">
                 Request Consultation
               </Button>
