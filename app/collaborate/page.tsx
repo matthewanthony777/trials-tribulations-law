@@ -1,3 +1,4 @@
+// app/collaborate/page.tsx
 import CollaborateForm from '@/components/collaborate-form'
 
 export default function CollaboratePage() {
@@ -7,8 +8,8 @@ export default function CollaboratePage() {
         <div className="text-center mb-16">
           <h1 className="text-5xl font-serif font-bold mb-6">Join Our Legal Community</h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Whether you're dreaming of a career in film, looking to develop your creative voice, or seeking to connect with 
-            fellow film enthusiasts - you've found your home.
+            Whether you're dreaming of a career in law, looking to develop your expertise, or seeking to connect with 
+            fellow legal professionals - you've found your home.
           </p>
         </div>
 

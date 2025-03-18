@@ -1,3 +1,4 @@
+// lib/schemas.ts
 import { z } from 'zod'
 
 export const NewsletterFormSchema = z.object({
