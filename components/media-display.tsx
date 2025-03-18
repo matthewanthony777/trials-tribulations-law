@@ -13,45 +13,48 @@ interface MediaDisplayProps {
 
 export default function MediaDisplay({ image, video, title, isPreview = false, className = '' }: MediaDisplayProps) {
   const [mediaError, setMediaError] = useState(false)
-  const [videoLoaded, setVideoLoaded] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   
-  // For previews with video, we'll show the video with autoplay
-  const shouldShowVideo = video && (isPreview || !isPreview)
+  // In preview mode, always show video if available
+  // In detail mode, only show video if explicitly intended for detail view
+  const shouldShowVideo = Boolean(video) && (isPreview || !isPreview)
   
+  // Setup video autoplay for preview mode
   useEffect(() => {
-    // For preview videos, we'll set them to autoplay, muted, and loop
-    if (videoRef.current && isPreview && video) {
-      videoRef.current.muted = true
-      videoRef.current.autoplay = true
-      videoRef.current.loop = true
-      videoRef.current.playsInline = true
+    if (videoRef.current && video && isPreview) {
+      // Configure video for autoplay
+      videoRef.current.muted = true;
+      videoRef.current.loop = true;
+      videoRef.current.playsInline = true;
       
-      // Try to play the video (needed for some browsers)
-      const playPromise = videoRef.current.play()
+      // Force play - needed for some browsers
+      const playVideo = async () => {
+        try {
+          await videoRef.current?.play();
+          console.log("Video autoplay successful");
+        } catch (err) {
+          console.error("Autoplay failed:", err);
+        }
+      };
       
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log('Autoplay prevented by browser:', error)
-        })
-      }
+      playVideo();
     }
-  }, [videoRef, video, isPreview])
+  }, [video, isPreview]);
   
   return (
     <div className={`relative overflow-hidden rounded-lg ${className}`}>
       {shouldShowVideo ? (
         // Video display
-        <div className="relative w-full aspect-video">
+        <div className="relative w-full h-full aspect-video">
           <video 
             ref={videoRef}
             src={video}
             poster={image}
             controls={!isPreview}
             muted={isPreview}
+            loop={isPreview}
             playsInline={isPreview}
             onError={() => setMediaError(true)}
-            onLoadedData={() => setVideoLoaded(true)}
             className="w-full h-full object-cover"
           />
           
@@ -78,10 +81,10 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
             </div>
           )}
           
-          {/* Play button overlay for previews */}
+          {/* Visual play button indicator for preview mode */}
           {isPreview && !mediaError && (
-            <div className="absolute inset-0 bg-black/30 flex items-center justify-center pointer-events-none">
-              <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center backdrop-blur-sm">
                 <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M8 5V19L19 12L8 5Z" fill="currentColor" />
                 </svg>
