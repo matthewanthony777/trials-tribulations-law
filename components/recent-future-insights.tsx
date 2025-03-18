@@ -19,7 +19,7 @@ export default async function RecentFutureInsights() {
             <ArrowRightIcon className="h-4 w-4" />
           </Link>
         </div>
-        <FutureInsights posts={insights} />
+        <FutureInsights insights={insights} />
       </div>
     </section>
   )
