@@ -97,7 +97,7 @@ export default function Footer() {
           </div>
           <div className='mt-8 md:order-1 md:mt-0'>
             <p className='text-center text-xs leading-5 text-muted-foreground'>
-              &copy; {new Date().getFullYear()} Matthew Anthony Barr. All rights
+              &copy; {new Date().getFullYear()} Trials & Tribulations Law. All rights
               reserved.
             </p>
           </div>
