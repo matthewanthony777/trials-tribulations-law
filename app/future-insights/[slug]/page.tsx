@@ -1,24 +1,28 @@
+// app/future-insights/[slug]/page.tsx
 import Link from 'next/link'
-import Image from 'next/image'
-
 import { formatDate } from '@/lib/utils'
 import MDXContent from '@/components/mdx-content'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { getFutureInsightBySlug, getFutureInsights } from '@/lib/future-insights'
 import { notFound } from 'next/navigation'
 import NewsletterForm from '@/components/newsletter-form'
+import MediaDisplay from '@/components/media-display'
 
 export async function generateStaticParams() {
-  const insights = await getFutureInsights()
-  const slugs = insights.map(insight => ({ slug: insight.slug }))
-
-  return slugs
+  try {
+    const insights = await getFutureInsights()
+    const slugs = insights.map(insight => ({ slug: insight.slug }))
+    return slugs
+  } catch (error) {
+    console.error("Error generating static params:", error)
+    return []
+  }
 }
 
 export default async function FutureInsight({ params }: { params: { slug: string } }) {
   const { slug } = params
   const insight = await getFutureInsightBySlug(slug)
-
+  
   if (!insight) {
     notFound()
   }
@@ -38,33 +42,18 @@ export default async function FutureInsight({ params }: { params: { slug: string
         </Link>
 
         <div className="max-w-3xl mx-auto">
-          {/* Media Section (Image or Video) */}
-          {video && (
-            <div className="relative mb-8 w-full overflow-hidden rounded-lg">
-              <video 
-                src={video} 
-                controls 
-                className="w-full" 
-                poster={image}
-              />
-            </div>
-          )}
-          
-          {!video && image && (
-            <div className="relative mb-8 h-96 w-full overflow-hidden rounded-lg">
-              <Image
-                src={image}
-                alt={title || ''}
-                className="object-cover"
-                fill
-              />
-            </div>
-          )}
+          {/* Media Section using the new MediaDisplay component */}
+          <MediaDisplay 
+            image={image}
+            video={video}
+            title={title}
+            className="mb-8 w-full"
+          />
 
           <header className="mb-12">
             <h1 className="text-3xl md:text-4xl font-serif font-bold">{title}</h1>
             <p className="mt-3 text-sm text-gray-400">
-              {author} / {formatDate(publishedAt ?? '')}
+              {author} / {publishedAt ? formatDate(publishedAt) : 'No date'}
             </p>
           </header>
 

@@ -13,6 +13,25 @@ try {
   console.error('Error creating directory:', error)
 }
 
+// Function to normalize media paths
+export function normalizeMediaPath(path: string | undefined): string | undefined {
+  if (!path) return undefined;
+  
+  // Ensure paths start with "/"
+  if (!path.startsWith('/')) {
+    path = '/' + path;
+  }
+  
+  // Replace video/ with videos/ if needed (match your actual structure)
+  if (path.startsWith('/video/')) {
+    path = '/videos' + path.substring(6);
+  }
+  
+  // Add more path normalizations as needed based on your file structure
+  
+  return path;
+}
+
 export type FutureInsight = {
   metadata: FutureInsightMetadata
   content: string
@@ -33,7 +52,15 @@ export async function getFutureInsightBySlug(slug: string): Promise<FutureInsigh
     const filePath = path.join(rootDirectory, `${slug}.mdx`)
     const fileContent = fs.readFileSync(filePath, { encoding: 'utf8' })
     const { data, content } = matter(fileContent)
-    return { metadata: { ...data, slug }, content }
+    
+    // Normalize media paths
+    const normalizedData = {
+      ...data,
+      image: normalizeMediaPath(data.image as string),
+      video: normalizeMediaPath(data.video as string)
+    }
+    
+    return { metadata: { ...normalizedData, slug }, content }
   } catch (error) {
     console.error(`Error reading insight ${slug}:`, error)
     return null
@@ -87,7 +114,15 @@ export function getFutureInsightMetadata(filepath: string): FutureInsightMetadat
     const filePath = path.join(rootDirectory, filepath)
     const fileContent = fs.readFileSync(filePath, { encoding: 'utf8' })
     const { data } = matter(fileContent)
-    return { ...data, slug }
+    
+    // Normalize media paths
+    const normalizedData = {
+      ...data,
+      image: normalizeMediaPath(data.image as string),
+      video: normalizeMediaPath(data.video as string)
+    }
+    
+    return { ...normalizedData, slug }
   } catch (error) {
     console.error(`Error reading metadata for ${filepath}:`, error)
     return { slug: filepath.replace(/\.mdx$/, '') }
