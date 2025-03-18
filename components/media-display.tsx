@@ -15,35 +15,34 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
   const [mediaError, setMediaError] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   
-  // In preview mode, always show video if available
-  // In detail mode, only show video if explicitly intended for detail view
-  const shouldShowVideo = Boolean(video) && (isPreview || !isPreview)
+  // Always show video if available, regardless of preview mode
+  const hasVideo = Boolean(video)
+  const hasImage = Boolean(image)
   
-  // Setup video autoplay for preview mode
+  // Setup autoplay for videos in preview mode
   useEffect(() => {
-    if (videoRef.current && video && isPreview) {
+    if (videoRef.current && hasVideo && isPreview) {
       // Configure video for autoplay
-      videoRef.current.muted = true;
-      videoRef.current.loop = true;
-      videoRef.current.playsInline = true;
+      videoRef.current.muted = true
+      videoRef.current.loop = true
+      videoRef.current.playsInline = true
       
       // Force play - needed for some browsers
       const playVideo = async () => {
         try {
-          await videoRef.current?.play();
-          console.log("Video autoplay successful");
+          await videoRef.current?.play()
         } catch (err) {
-          console.error("Autoplay failed:", err);
+          console.error("Autoplay failed:", err)
         }
-      };
+      }
       
-      playVideo();
+      playVideo()
     }
-  }, [video, isPreview]);
+  }, [hasVideo, isPreview])
   
   return (
     <div className={`relative overflow-hidden rounded-lg ${className}`}>
-      {shouldShowVideo ? (
+      {hasVideo ? (
         // Video display
         <div className="relative w-full h-full aspect-video">
           <video 
@@ -59,9 +58,9 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
           />
           
           {/* Fallback if video fails to load */}
-          {mediaError && image && (
+          {(mediaError && hasImage) && (
             <Image
-              src={image}
+              src={image!}
               alt={title || 'Article image'}
               fill
               className="object-cover"
@@ -70,7 +69,7 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
           )}
           
           {/* Complete fallback if both video and image fail */}
-          {mediaError && !image && (
+          {(mediaError && !hasImage) && (
             <div className="absolute inset-0 bg-zinc-900 flex items-center justify-center">
               <div className="text-center">
                 <svg className="w-12 h-12 mx-auto text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,7 +81,7 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
           )}
           
           {/* Visual play button indicator for preview mode */}
-          {isPreview && !mediaError && (
+          {(isPreview && !mediaError) && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center backdrop-blur-sm">
                 <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,27 +91,26 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
             </div>
           )}
         </div>
-      ) : (
+      ) : hasImage ? (
         // Image display (when no video)
         <div className="relative w-full h-full aspect-video">
-          {image && !mediaError ? (
-            <Image
-              src={image}
-              alt={title || 'Article image'}
-              fill
-              className="object-cover"
-              onError={() => setMediaError(true)}
-            />
-          ) : (
-            <div className="absolute inset-0 bg-zinc-900 flex items-center justify-center">
-              <div className="text-center">
-                <svg className="w-12 h-12 mx-auto text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <p className="text-gray-400">{title || 'Image unavailable'}</p>
-              </div>
-            </div>
-          )}
+          <Image
+            src={image!}
+            alt={title || 'Article image'}
+            fill
+            className="object-cover"
+            onError={() => setMediaError(true)}
+          />
+        </div>
+      ) : (
+        // No media fallback
+        <div className="relative w-full h-full aspect-video bg-zinc-900 flex items-center justify-center">
+          <div className="text-center">
+            <svg className="w-12 h-12 mx-auto text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <p className="text-gray-400">{title || 'No media available'}</p>
+          </div>
         </div>
       )}
     </div>
