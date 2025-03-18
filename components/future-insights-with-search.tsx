@@ -1,5 +1,4 @@
 'use client'
-
 import { useState } from 'react'
 import { FutureInsightMetadata as PostMetadata } from '@/lib/future-insights'
 import Posts from '@/components/future-insights'
@@ -12,12 +11,12 @@ export default function PostsWithSearch({ posts }: { posts: PostMetadata[] }) {
   const filtered = posts.filter(post =>
     post.title?.toLowerCase().includes(query.toLowerCase())
   )
-
   const isFiltered = query.length > 0
+  
   function resetFilter() {
     setQuery('')
   }
-
+  
   return (
     <div>
       <div className='mb-12 flex items-center gap-3'>
@@ -40,8 +39,7 @@ export default function PostsWithSearch({ posts }: { posts: PostMetadata[] }) {
           </Button>
         )}
       </div>
-
-      <Posts posts={filtered} />
+      <Posts insights={filtered} />
     </div>
   )
 }
