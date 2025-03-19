@@ -15,16 +15,33 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
   const [mediaError, setMediaError] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   
-  // Debug the props
+  // Enhanced debugging to help identify issues
   useEffect(() => {
-    console.log("MediaDisplay:", { video, image, isPreview });
+    console.log("MediaDisplay:", { 
+      video, 
+      image, 
+      isPreview,
+      imageType: image ? getFileExtension(image) : null,
+      videoType: video ? getFileExtension(video) : null
+    });
   }, [video, image, isPreview]);
   
-  // Setup video playback behavior differently for preview vs detail view
+  // Helper function to get file extension
+  const getFileExtension = (path?: string) => {
+    if (!path) return null;
+    const parts = path.split('.');
+    return parts.length > 1 ? parts[parts.length - 1].toLowerCase() : null;
+  };
+  
+  // Determine if we're dealing with an animated image format
+  const imageExt = image ? getFileExtension(image) : null;
+  const isAnimatedImage = imageExt === 'gif' || imageExt === 'webp' || imageExt === 'apng';
+  
+  // Setup video playback behavior 
   useEffect(() => {
     if (videoRef.current && video) {
       if (isPreview) {
-        // Preview mode - autoplay, muted, loop, no controls
+        // Preview mode - autoplay, muted, loop
         videoRef.current.muted = true;
         videoRef.current.loop = true;
         videoRef.current.playsInline = true;
@@ -34,6 +51,7 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
         const playPreview = async () => {
           try {
             await videoRef.current?.play();
+            console.log("Preview autoplay successful");
           } catch (err) {
             console.error("Preview autoplay failed:", err);
           }
@@ -41,11 +59,13 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
         
         playPreview();
       } else {
-        // Detail view - show controls, don't autoplay
-        videoRef.current.muted = false;
+        // Detail view - with controls
         videoRef.current.controls = true;
-        videoRef.current.loop = false;
-        videoRef.current.autoplay = false;
+        
+        // Only mute if specifically required
+        videoRef.current.muted = false; 
+        
+        console.log("Detail view video setup complete");
       }
     }
   }, [video, isPreview]);
@@ -58,27 +78,37 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
           <video 
             ref={videoRef}
             src={video}
-            poster={image}
-            // Let the useEffect handle controls and behavior instead
+            poster={image && !isAnimatedImage ? image : undefined}
             className="w-full h-full object-cover"
             onError={(e) => {
               console.error("Video error:", e);
               setMediaError(true);
             }}
           />
-          
-          {/* No play button overlay */}
         </div>
       ) : image ? (
         // Only image is available (no video)
         <div className="relative w-full h-full aspect-video">
-          <Image
-            src={image}
-            alt={title || 'Article image'}
-            fill
-            className="object-cover"
-            onError={() => setMediaError(true)}
-          />
+          {/* Special handling for animated images to ensure they animate */}
+          {isAnimatedImage ? (
+            // Use img tag directly for animated formats to ensure animation
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={image}
+              alt={title || 'Article image'}
+              className="w-full h-full object-cover"
+              onError={() => setMediaError(true)}
+            />
+          ) : (
+            // Use Next.js Image for static images
+            <Image
+              src={image}
+              alt={title || 'Article image'}
+              fill
+              className="object-cover"
+              onError={() => setMediaError(true)}
+            />
+          )}
         </div>
       ) : (
         // No media available
