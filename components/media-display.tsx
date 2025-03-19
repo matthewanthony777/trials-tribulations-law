@@ -15,88 +15,66 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
   const [mediaError, setMediaError] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   
-  // Always show video if available, for both preview and detail view
-  const hasVideo = Boolean(video)
-  const hasImage = Boolean(image)
-  
-  // Setup video playback behavior for preview mode
+  // Add some debugging to troubleshoot
   useEffect(() => {
-    if (videoRef.current && hasVideo && isPreview) {
-      // Set up muted autoplay for preview mode
-      videoRef.current.muted = true
-      videoRef.current.loop = true
-      videoRef.current.playsInline = true
+    console.log("MediaDisplay props:", { image, video, title, isPreview });
+  }, [image, video, title, isPreview]);
+  
+  // Setup video playback behavior
+  useEffect(() => {
+    if (videoRef.current && video) {
+      // Set up video properties
+      videoRef.current.muted = true;
+      videoRef.current.loop = true;
+      videoRef.current.playsInline = true;
       
-      // Try to play the video (needed for some browsers)
+      // Try to play the video
       const playVideo = async () => {
         try {
-          await videoRef.current?.play()
+          await videoRef.current?.play();
+          console.log("Video playing successfully");
         } catch (err) {
-          console.error("Autoplay failed:", err)
+          console.error("Video play error:", err);
         }
-      }
+      };
       
-      playVideo()
+      // Always try to play in preview mode
+      if (isPreview) {
+        playVideo();
+      }
     }
-  }, [hasVideo, isPreview])
+  }, [video, isPreview]);
   
+  // For preview cards with videos, show a static image or the first frame
+  // For detail view, show the full video with controls
   return (
     <div className={`relative overflow-hidden rounded-lg ${className}`}>
-      {hasVideo ? (
-        // Video display
+      {video ? (
+        // Video is available
         <div className="relative w-full h-full aspect-video">
+          {/* Always include the video element */}
           <video 
             ref={videoRef}
             src={video}
             poster={image}
             controls={!isPreview}
-            muted={isPreview}
+            muted={true}
             loop={isPreview}
-            playsInline={isPreview}
-            onError={() => setMediaError(true)}
+            playsInline={true}
+            onError={(e) => {
+              console.error("Video error:", e);
+              setMediaError(true);
+            }}
             className="w-full h-full object-cover"
           />
           
-          {/* Fallback if video fails to load */}
-          {(mediaError && hasImage) && (
-            <Image
-              src={image!}
-              alt={title || 'Article image'}
-              fill
-              className="object-cover"
-              onError={() => setMediaError(true)}
-            />
-          )}
-          
-          {/* Complete fallback if both video and image fail */}
-          {(mediaError && !hasImage) && (
-            <div className="absolute inset-0 bg-zinc-900 flex items-center justify-center">
-              <div className="text-center">
-                <svg className="w-12 h-12 mx-auto text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
-                </svg>
-                <p className="text-gray-400">{title || 'Media unavailable'}</p>
-              </div>
-            </div>
-          )}
-          
-          {/* Play button overlay - REMOVED FOR PREVIEW MODE */}
-          {/* Only show in non-preview mode if explicitly needed */}
-          {false && isPreview && !mediaError && (
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center backdrop-blur-sm">
-                <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 5V19L19 12L8 5Z" fill="currentColor" />
-                </svg>
-              </div>
-            </div>
-          )}
+          {/* NO play button overlay for preview mode */}
         </div>
-      ) : hasImage ? (
-        // Image display (when no video)
+      ) : image ? (
+        // Only image is available (no video)
         <div className="relative w-full h-full aspect-video">
           <Image
-            src={image!}
+            src={image}
             alt={title || 'Article image'}
             fill
             className="object-cover"
@@ -104,7 +82,7 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
           />
         </div>
       ) : (
-        // No media fallback
+        // No media available
         <div className="relative w-full h-full aspect-video bg-zinc-900 flex items-center justify-center">
           <div className="text-center">
             <svg className="w-12 h-12 mx-auto text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
