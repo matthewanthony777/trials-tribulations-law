@@ -15,60 +15,59 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
   const [mediaError, setMediaError] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   
-  // Add some debugging to troubleshoot
+  // Debug the props
   useEffect(() => {
-    console.log("MediaDisplay props:", { image, video, title, isPreview });
-  }, [image, video, title, isPreview]);
+    console.log("MediaDisplay:", { video, image, isPreview });
+  }, [video, image, isPreview]);
   
-  // Setup video playback behavior
+  // Setup video playback behavior differently for preview vs detail view
   useEffect(() => {
     if (videoRef.current && video) {
-      // Set up video properties
-      videoRef.current.muted = true;
-      videoRef.current.loop = true;
-      videoRef.current.playsInline = true;
-      
-      // Try to play the video
-      const playVideo = async () => {
-        try {
-          await videoRef.current?.play();
-          console.log("Video playing successfully");
-        } catch (err) {
-          console.error("Video play error:", err);
-        }
-      };
-      
-      // Always try to play in preview mode
       if (isPreview) {
-        playVideo();
+        // Preview mode - autoplay, muted, loop, no controls
+        videoRef.current.muted = true;
+        videoRef.current.loop = true;
+        videoRef.current.playsInline = true;
+        videoRef.current.controls = false;
+        
+        // Try to autoplay
+        const playPreview = async () => {
+          try {
+            await videoRef.current?.play();
+          } catch (err) {
+            console.error("Preview autoplay failed:", err);
+          }
+        };
+        
+        playPreview();
+      } else {
+        // Detail view - show controls, don't autoplay
+        videoRef.current.muted = false;
+        videoRef.current.controls = true;
+        videoRef.current.loop = false;
+        videoRef.current.autoplay = false;
       }
     }
   }, [video, isPreview]);
   
-  // For preview cards with videos, show a static image or the first frame
-  // For detail view, show the full video with controls
   return (
     <div className={`relative overflow-hidden rounded-lg ${className}`}>
       {video ? (
         // Video is available
         <div className="relative w-full h-full aspect-video">
-          {/* Always include the video element */}
           <video 
             ref={videoRef}
             src={video}
             poster={image}
-            controls={!isPreview}
-            muted={true}
-            loop={isPreview}
-            playsInline={true}
+            // Let the useEffect handle controls and behavior instead
+            className="w-full h-full object-cover"
             onError={(e) => {
               console.error("Video error:", e);
               setMediaError(true);
             }}
-            className="w-full h-full object-cover"
           />
           
-          {/* NO play button overlay for preview mode */}
+          {/* No play button overlay */}
         </div>
       ) : image ? (
         // Only image is available (no video)
