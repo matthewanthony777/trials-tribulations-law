@@ -15,19 +15,19 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
   const [mediaError, setMediaError] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   
-  // Always show video if available, regardless of preview mode
+  // Always show video if available, for both preview and detail view
   const hasVideo = Boolean(video)
   const hasImage = Boolean(image)
   
-  // Setup autoplay for videos in preview mode
+  // Setup video playback behavior for preview mode
   useEffect(() => {
     if (videoRef.current && hasVideo && isPreview) {
-      // Configure video for autoplay
+      // Set up muted autoplay for preview mode
       videoRef.current.muted = true
       videoRef.current.loop = true
       videoRef.current.playsInline = true
       
-      // Force play - needed for some browsers
+      // Try to play the video (needed for some browsers)
       const playVideo = async () => {
         try {
           await videoRef.current?.play()
@@ -80,8 +80,9 @@ export default function MediaDisplay({ image, video, title, isPreview = false, c
             </div>
           )}
           
-          {/* Visual play button indicator for preview mode */}
-          {(isPreview && !mediaError) && (
+          {/* Play button overlay - REMOVED FOR PREVIEW MODE */}
+          {/* Only show in non-preview mode if explicitly needed */}
+          {false && isPreview && !mediaError && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="w-16 h-16 rounded-full bg-black/50 flex items-center justify-center backdrop-blur-sm">
                 <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
