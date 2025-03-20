@@ -16,7 +16,7 @@ export default function Home() {
   Legal Futurism - Where Law, AI, Media and Creative Vision Converge
 </h1>
 <p className="mt-6 text-xl text-gray-300 max-w-xl">
-  Pioneering where visionary legal minds harness AI to reshape the profession. We reveal hidden opportunities invisible to the mainstream—positioning you to dominate emerging fields before others recognize they exist.
+  Pioneering where visionary legal minds harness AI & Media to creativly reshape the profession. We reveal hidden opportunities invisible to the mainstream—positioning you to dominate emerging fields before others recognise they exist.
 </p>
               
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
