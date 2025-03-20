@@ -75,16 +75,17 @@ export default function Home() {
             </div>
             
             <div className="relative hidden lg:block">
-              <div className="w-full h-[500px] relative overflow-hidden rounded-md">
-                <Image 
-                  src="/images/lawyer-suits.jpg" 
-                  alt="Professional suits hanging in a closet" 
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </div>
+  <div className="w-full h-[500px] relative overflow-hidden rounded-md">
+    <video 
+      src="/videos/future-insights/tenet-edit.MP4" 
+      className="w-full h-full object-cover"
+      autoPlay 
+      muted 
+      loop 
+      playsInline
+    />
+  </div>
+</div>
           </div>
         </div>
       </section>
