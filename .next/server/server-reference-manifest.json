@@ -1,19 +1,19 @@
 {
   "node": {
-    "51a902f4027f5ddc46eba7eb0478a2140fc16abb": {
+    "2bee142d35ba381a48a08ea6224296af5033ce61": {
       "workers": {
-        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDownloads%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22sendEmail%22%2C%22subscribe%22%5D%5D%5D&__client_imported__=true!",
-        "app/collaborate/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDownloads%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22sendEmail%22%2C%22subscribe%22%5D%5D%5D&__client_imported__=true!"
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDesktop%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22subscribe%22%2C%22sendEmail%22%5D%5D%5D&__client_imported__=true!",
+        "app/collaborate/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDesktop%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22subscribe%22%2C%22sendEmail%22%5D%5D%5D&__client_imported__=true!"
       },
       "layer": {
         "app/page": "action-browser",
         "app/collaborate/page": "action-browser"
       }
     },
-    "e760a656992e6b620c512c3cd078605b60706f4c": {
+    "df4009c7771d136afcddfe2f8df9ded9478c5e51": {
       "workers": {
-        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDownloads%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22sendEmail%22%2C%22subscribe%22%5D%5D%5D&__client_imported__=true!",
-        "app/collaborate/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDownloads%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22sendEmail%22%2C%22subscribe%22%5D%5D%5D&__client_imported__=true!"
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDesktop%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22subscribe%22%2C%22sendEmail%22%5D%5D%5D&__client_imported__=true!",
+        "app/collaborate/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDesktop%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22subscribe%22%2C%22sendEmail%22%5D%5D%5D&__client_imported__=true!"
       },
       "layer": {
         "app/page": "action-browser",
@@ -22,5 +22,5 @@
     }
   },
   "edge": {},
-  "encryptionKey": "56stLd8drlSl8T1jtP3GHQlBGI58kcJeZeJ/CwoCL7A="
+  "encryptionKey": "nXa3a5hDqBHVHw/mmk1m4dm4+fb+l8xeqQjlSz8pOYw="
 }

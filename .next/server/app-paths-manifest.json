@@ -1,4 +1,6 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/collaborate/page": "app/collaborate/page.js"
+  "/collaborate/page": "app/collaborate/page.js",
+  "/future-insights/page": "app/future-insights/page.js",
+  "/expertise/page": "app/expertise/page.js",
+  "/page": "app/page.js"
 }
