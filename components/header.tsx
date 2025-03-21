@@ -30,7 +30,7 @@ export default function Header() {
               </li>
               <li className="transition-colors hover:text-white flex items-center">
                 <PersonIcon className="mr-2 h-4 w-4" />
-                <Link href="/expertise">Our Expertise</Link>
+                <Link href="/expertise">Expertise</Link>
               </li>
               <li className="transition-colors hover:text-white flex items-center">
                 <ChatBubbleIcon className="mr-2 h-4 w-4" />
