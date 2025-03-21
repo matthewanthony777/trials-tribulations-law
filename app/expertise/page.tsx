@@ -17,9 +17,9 @@ export default function ExpertisePage() {
         />
         
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">OUR EXPERTISE</h1>
+          <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">LEGAL FUTURISM EXPERTISE</h1>
           <p className="text-xl md:text-2xl font-serif italic text-gray-300 max-w-3xl">
-            Accessing the Hidden Pathways Others Can't See
+          Creating the Future of Law Through AI, Creativity, and Strategic Foresight
           </p>
         </div>
       </div>
