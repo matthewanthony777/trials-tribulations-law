@@ -85,11 +85,11 @@ export default function CollaborateForm() {
 
         {/* Current Position & Challenges */}
         <div>
-          <label htmlFor="position" className="block text-sm font-medium text-gray-300 mb-2">Your Current Position & Challenges</label>
+          <label htmlFor="position" className="block text-sm font-medium text-gray-300 mb-2">Tell Us About Your Situation</label>
           <Textarea
             id="position"
             rows={4}
-            placeholder="Share your current role, key challenges, and what traditional advice has failed to address..."
+            placeholder="Share your background, current role, and what brings you to Trials & Tribulations today...."
             className="w-full bg-black border-white/20 text-white placeholder:text-gray-500"
             {...register('position')}
           />
@@ -102,11 +102,11 @@ export default function CollaborateForm() {
 
         {/* Goals */}
         <div>
-          <label htmlFor="goals" className="block text-sm font-medium text-gray-300 mb-2">What kind of support are you looking for?</label>
+          <label htmlFor="goals" className="block text-sm font-medium text-gray-300 mb-2">How Can We Collaborate?</label>
           <Textarea
             id="goals"
             rows={4}
-            placeholder="Tell us about your goals and how we can help..."
+            placeholder="Let us know what you're looking to achieve - whether it's career guidance, website development, content creation, or contributing to our community..."
             className="w-full bg-black border-white/20 text-white placeholder:text-gray-500"
             {...register('goals')}
           />
