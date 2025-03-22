@@ -2,25 +2,21 @@
   "node": {
     "2bee142d35ba381a48a08ea6224296af5033ce61": {
       "workers": {
-        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDesktop%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22subscribe%22%2C%22sendEmail%22%5D%5D%5D&__client_imported__=true!",
-        "app/collaborate/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDesktop%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22subscribe%22%2C%22sendEmail%22%5D%5D%5D&__client_imported__=true!"
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDesktop%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22subscribe%22%2C%22sendEmail%22%5D%5D%5D&__client_imported__=true!"
       },
       "layer": {
-        "app/page": "action-browser",
-        "app/collaborate/page": "action-browser"
+        "app/page": "action-browser"
       }
     },
     "df4009c7771d136afcddfe2f8df9ded9478c5e51": {
       "workers": {
-        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDesktop%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22subscribe%22%2C%22sendEmail%22%5D%5D%5D&__client_imported__=true!",
-        "app/collaborate/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDesktop%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22subscribe%22%2C%22sendEmail%22%5D%5D%5D&__client_imported__=true!"
+        "app/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fmatthewbarr%2FDesktop%2Ftrials-tribulations-main%2Flib%2Factions.ts%22%2C%5B%22subscribe%22%2C%22sendEmail%22%5D%5D%5D&__client_imported__=true!"
       },
       "layer": {
-        "app/page": "action-browser",
-        "app/collaborate/page": "action-browser"
+        "app/page": "action-browser"
       }
     }
   },
   "edge": {},
-  "encryptionKey": "aVuWc3afrF+Pa+9G8mdk4q6P6V5chFqwRpGPvE7by5Y="
+  "encryptionKey": "jis3pIqHaiHrKeuGo5omKqkNa+j20quMtAWTfioqMtA="
 }
